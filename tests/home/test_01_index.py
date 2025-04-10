@@ -1,0 +1,29 @@
+import pytest
+import requests
+
+# 设置用例标签
+@pytest.mark.P1
+# 失败用例重新跑，reruns参数设定重跑次数，reruns_delay设定每次重跑时间间隔
+@pytest.mark.flaky(
+    reruns=3,
+    reruns_delay=2
+)
+# 设置用例优先级
+@pytest.mark.run(order=1)
+class TestIndex:
+
+    def test_index(self, data_share_token):
+        arcana_auth = data_share_token
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "arcana-auth": "bearer " + arcana_auth,
+            "authorization": "Basic c2FiZXI6c2FiZXJfc2VjcmV0",
+            "Connection": "keep-alive"
+        }
+        session = requests.session()
+        response = session.request("GET", headers=headers,
+                                   url="http://192.168.60.37:7088/arcana-llm-service/console/api/index")
+        result = response.json()
+        print(type(result), result)
+        gpu = result["gpu"]
+        assert gpu is not None
