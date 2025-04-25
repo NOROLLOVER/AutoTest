@@ -1,6 +1,9 @@
 import pytest
 import requests
 
+from utils.sendRequests import SendRequests
+
+
 # 设置用例标签
 @pytest.mark.P1
 # 失败用例重新跑，reruns参数设定重跑次数，reruns_delay设定每次重跑时间间隔
@@ -20,9 +23,9 @@ class TestIndex:
             "authorization": "Basic c2FiZXI6c2FiZXJfc2VjcmV0",
             "Connection": "keep-alive"
         }
-        session = requests.session()
-        response = session.request("GET", headers=headers,
-                                   url="http://192.168.60.37:7088/arcana-llm-service/console/api/index")
+
+        response = SendRequests().send_request(method="GET", headers=headers,
+                                   url="http://192.168.60.37:7088/arcana-llm-service/console/api/index",json=None)
         result = response.json()
         print(type(result), result)
         gpu = result["gpu"]
