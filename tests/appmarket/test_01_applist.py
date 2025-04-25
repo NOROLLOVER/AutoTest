@@ -24,4 +24,4 @@ class TestAppList:
             url="http://192.168.60.37:7088/arcana-llm-service/console/api/explore/apps",
             json=None
         )
-        print(response.text)
+        print(response.json())
