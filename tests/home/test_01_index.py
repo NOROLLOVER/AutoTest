@@ -1,6 +1,7 @@
 import pytest
 import requests
 
+from utils.configParser import ConfigParse
 from utils.sendRequests import SendRequests
 
 
@@ -23,9 +24,11 @@ class TestIndex:
             "authorization": "Basic c2FiZXI6c2FiZXJfc2VjcmV0",
             "Connection": "keep-alive"
         }
-
+        host = ConfigParse().get_value("Host", "host")
+        port = ConfigParse().get_value("Host", "port")
         response = SendRequests().send_request(method="GET", headers=headers,
-                                   url="http://192.168.60.37:7088/arcana-llm-service/console/api/index",json=None)
+                                               url=host + ":" + port + "/arcana-llm-service/console/api/index",
+                                               json=None)
         result = response.json()
         print(type(result), result)
         gpu = result["gpu"]

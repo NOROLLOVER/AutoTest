@@ -1,6 +1,6 @@
 import yaml
 
-from config.system import FILE_PATH
+from configs.setting import FILE_PATH
 
 
 def read_yaml(file_path):
@@ -26,7 +26,7 @@ def write_yaml(value):
 
     file_path = FILE_PATH["extract"]
     if not file_path:
-        with open(file_path,"w"):
+        with open(file_path, "w"):
             pass
     try:
         if isinstance(value, dict):
@@ -39,7 +39,25 @@ def write_yaml(value):
         print(f"文件写入异常，原因{e}")
 
 
+def main(text: list) -> dict:
+    if not isinstance(text, list):
+        return {
+            "result": "输出必须是一个列表"
+        }
+    data = []
+    for item in text:
+        if not isinstance(item, dict) or "content" not in item:
+            return {
+                "result": "不是字典或不包含 \"content\" 键"
+            }
+        i = item["content"]
+        data.append(i)
+    return {
+        "result": data
+    }
+
+
 if __name__ == '__main__':
     value = {"123": "456"}
     write_yaml(value)
-    read_yaml(".././extract_data.yaml")
+    read_yaml(".././extract.yaml")
