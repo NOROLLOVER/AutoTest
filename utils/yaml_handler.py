@@ -39,6 +39,27 @@ def write_yaml(value):
         print(f"文件写入异常，原因{e}")
 
 
+def extract_yaml(node_name, sub_node_name=None):
+    file_path = None
+    try:
+        file_path = FILE_PATH["extract"]
+        with open(file_path, "r", encoding="utf-8") as file:
+            yaml_file = yaml.safe_load(file)
+            if node_name is not None:
+                result = yaml_file.get(node_name, {})
+                if sub_node_name is not None:
+                    return result.get(sub_node_name)
+                else:
+                    return result
+            else:
+                return {}
+    except KeyError:
+        print("yaml文件不存在")
+        return {}
+    except FileNotFoundError:
+        print(f"文件{file_path}不存在")
+
+
 def main(text: list) -> dict:
     if not isinstance(text, list):
         return {
@@ -58,6 +79,8 @@ def main(text: list) -> dict:
 
 
 if __name__ == '__main__':
-    value = {"123": "456"}
-    write_yaml(value)
-    read_yaml(".././extract.yaml")
+    # value = {"123": "456"}
+    # write_yaml(value)
+    # read_yaml(".././extract.yaml")
+
+    print(extract_yaml("user_id", "user_ids"))
