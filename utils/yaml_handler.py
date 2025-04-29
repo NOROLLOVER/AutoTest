@@ -39,20 +39,22 @@ def write_yaml(value):
         print(f"文件写入异常，原因{e}")
 
 
-def extract_yaml(node_name, sub_node_name=None):
+def get_extract_yaml(node_name, sub_node_name=None):
+    """
+    解析yaml内容
+    :param node_name: 顶级节点
+    :param sub_node_name: 第二级节点
+    :return:
+    """
     file_path = None
     try:
         file_path = FILE_PATH["extract"]
         with open(file_path, "r", encoding="utf-8") as file:
             yaml_file = yaml.safe_load(file)
-            if node_name is not None:
-                result = yaml_file.get(node_name, {})
-                if sub_node_name is not None:
-                    return result.get(sub_node_name)
-                else:
-                    return result
+            if sub_node_name is None:
+                return yaml_file[node_name]
             else:
-                return {}
+                return yaml_file[node_name].get(sub_node_name, {})
     except KeyError:
         print("yaml文件不存在")
         return {}
@@ -83,4 +85,4 @@ if __name__ == '__main__':
     # write_yaml(value)
     # read_yaml(".././extract.yaml")
 
-    print(extract_yaml("user_id", "user_ids"))
+    print(extract_yaml("user_id"))
