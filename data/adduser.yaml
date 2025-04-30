@@ -1,0 +1,6 @@
+account:
+  - username: "dwajidj"
+    password: "21897"
+
+  - username: "xiaoming"
+    password: ${get_extract_data(goodsId,1)}
