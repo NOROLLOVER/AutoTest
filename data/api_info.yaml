@@ -1,0 +1,44 @@
+baseInfo:
+  api_name: 用户登录
+  url: /arcana-auth/oauth/token
+  method: post
+  header: ${get_headers(json)}
+#  cookies: ${get_extract_data(Cookie)}
+
+testCases:
+  - case_name: 用户正常登录校验
+    data: {
+      "username": "admin",
+      "password": "25d55ad283aa400af464c76d713c07ad",
+      "remember": "false",
+      "tenantId": "000000",
+      "grant_type": "password",
+      "scope": "all",
+      "verify": "gAoSiglRxSRTwzO9nNuhMAvOZVu1/rcqJLZ9xwdjSz630b2ksdBNF+GXiD3R/kkAcir392f7AOoY8nGDTFXAdFGME09K7deP7/+ckLoFr6AdrVyL/u/Qds1U6yTuhTIRJgcTwTH/+ulpTa5WF7PwUu1p/uQ3L6fVs8TI4/TZfE7QUNlH8Lke734sHtfIGoiBvpiLd/6qtBxhmbLvEJsZY0KHhYVfV2QM+l7u+L5JkUO/rEUcufimJd15JMmoJG+ZhfTszKK7Ie4CiDqK95mSex5ryMVO8yAYY2fD9I+cc02cjYMa5VVFHr7ddrF7djNTrTqGFSFFNoTXs+tRMbC4pw=="
+    }
+    validation:
+      - contain: { 'msg': '登录成功' }
+      - eq: { 'msg': '登录成功' }
+    extract:
+      #        token: '"msg_code":(\d*)'
+      token: ${get_extract_data(token)}
+
+    extract_list:
+      goods_ids: $.goodIds
+
+#  - case_name: 用户访问首页
+#    data: {
+#      "username": "admin",
+#      "password": "25d55ad283aa400af464c76d713c07ad",
+#      "remember": "false",
+#      "tenantId": "000000",
+#      "grant_type": "password",
+#      "scope": "all",
+#      "verify": "gAoSiglRxSRTwzO9nNuhMAvOZVu1/rcqJLZ9xwdjSz630b2ksdBNF+GXiD3R/kkAcir392f7AOoY8nGDTFXAdFGME09K7deP7/+ckLoFr6AdrVyL/u/Qds1U6yTuhTIRJgcTwTH/+ulpTa5WF7PwUu1p/uQ3L6fVs8TI4/TZfE7QUNlH8Lke734sHtfIGoiBvpiLd/6qtBxhmbLvEJsZY0KHhYVfV2QM+l7u+L5JkUO/rEUcufimJd15JMmoJG+ZhfTszKK7Ie4CiDqK95mSex5ryMVO8yAYY2fD9I+cc02cjYMa5VVFHr7ddrF7djNTrTqGFSFFNoTXs+tRMbC4pw=="
+#    }
+#    validation:
+#      - contain: { 'msg': '登录成功' }
+#      - eq: { 'msg': '登录成功' }
+#    extract:
+#      #        token: '"msg_code":(\d*)'
+#      token: $.token

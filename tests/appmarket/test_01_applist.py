@@ -8,6 +8,7 @@ from utils.sendRequests import SendRequests
 
 @pytest.mark.P1
 @pytest.mark.flaky(rerun=3, rerun_delay=2)
+@pytest.mark.run(order=3)
 class TestAppList:
 
     def test_app_list(self, data_share_token):

@@ -61,8 +61,12 @@ def get_extract_yaml(node_name, sub_node_name=None):
     except FileNotFoundError:
         print(f"文件{file_path}不存在")
 
+def clear_yaml(file_path):
+    with open(file_path,"w",encoding="utf-8") as file:
+        file.write("")
 
-def main(text: list) -> dict:
+
+def test(text: list) -> dict:
     if not isinstance(text, list):
         return {
             "result": "输出必须是一个列表"
@@ -78,6 +82,7 @@ def main(text: list) -> dict:
     return {
         "result": data
     }
+
 
 
 if __name__ == '__main__':

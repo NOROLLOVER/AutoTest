@@ -7,7 +7,6 @@ from utils.yaml_handler import write_yaml
 def data_share_params(request):
     return request.param
 
-
 @pytest.fixture(scope="session", autouse=False)
 def data_share_token(request):
     headers = {
@@ -29,5 +28,6 @@ def data_share_token(request):
     response = SendRequests().send_request(method="POST", url="http://192.168.60.37:7088/arcana-auth/oauth/token",
                                            headers=headers, json=data)
     access_token = str(response.json()['access_token'])
-    write_yaml(response.json())
+    token = {"token": access_token}
+    write_yaml(token)
     return access_token

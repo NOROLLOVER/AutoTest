@@ -7,7 +7,7 @@ sys.path.append(DIR_PATH)
 
 FILE_PATH = {
     "extract": os.path.join(DIR_PATH, "extract.yaml"),
-    "ini": os.path.join(DIR_PATH,"env.ini")
+    "ini": os.path.join(DIR_PATH,"configs/config.ini")
 }
 
 print(FILE_PATH["extract"])

@@ -3,4 +3,4 @@ account:
     password: "21897"
 
   - username: "xiaoming"
-    password: ${get_extract_data(goodsId,1)}
+    password: ${get_extract_data(token)}
